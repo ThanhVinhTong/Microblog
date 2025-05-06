@@ -15,3 +15,5 @@ class Config:
     ADMINS = ['tester@gmail.com']
 
     POSTS_PER_PAGE = 25
+
+    LANGUAGES = ['en', 'es', 'vi']

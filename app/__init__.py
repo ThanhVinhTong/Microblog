@@ -1,15 +1,24 @@
 import logging, os
 
-from flask import Flask
+from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_mail import Mail
 from flask_moment import Moment
+from flask_babel import Babel
 
 from config import Config
 
 from logging.handlers import SMTPHandler, RotatingFileHandler
+
+def get_locale():
+    # Try to get locale from cookie first
+    locale = request.cookies.get('locale')
+    if locale and locale in app.config['LANGUAGES']:
+        return locale
+    # Fall back to best match from accept-languages header
+    return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -17,6 +26,7 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 moment = Moment(app)
+babel = Babel(app, locale_selector=get_locale)
 
 login = LoginManager(app)
 login.init_app(app)
