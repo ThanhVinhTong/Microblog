@@ -1,2 +1,4 @@
 FLASK_APP=microblog.py
 FLASK_DEBUG=1
+MAIL_USERNAME=vinhtongthanh57@gmail.com
+MAIL_PASSWORD=V1i0n0h32001!
