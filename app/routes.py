@@ -54,7 +54,7 @@ def login():
             next_page = url_for('index')
         return redirect(url_for('index'))
     
-    return render_template('login.html', title='Sign In', form=form)
+    return render_template('auth/login.html', title='Sign In', form=form)
 
 @app.route('/logout')
 def logout():
@@ -76,7 +76,7 @@ def register():
         flash('Congratulations, you are now a registered user!')
         return redirect(url_for('login'))
     
-    return render_template('register.html', title='Register', form=form)
+    return render_template('auth/register.html', title='Register', form=form)
 
 @app.route('/user/<username>')
 @login_required
@@ -86,7 +86,7 @@ def user(username):
         {'author': user, 'body': 'Test post #1'},
         {'author': user, 'body': 'Test post #2'}
     ]
-    return render_template('user.html', user=user, posts=posts)
+    return render_template('user/user.html', user=user, posts=posts)
 
 # Record time of last visit
 @app.before_request
@@ -111,4 +111,4 @@ def edit_profile():
         form.username.data = current_user.username
         form.about_me.data = current_user.about_me
 
-    return render_template('edit_profile.html', title='Edit Profile', form=form)
+    return render_template('user/edit_profile.html', title='Edit Profile', form=form)
